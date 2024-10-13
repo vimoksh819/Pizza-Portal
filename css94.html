@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .cart-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .cart-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            flex: 1 1 30%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .cart-item img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        .cart-item h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .cart-item p {
+            margin: 5px 0;
+        }
+        .cart-item .price {
+            font-weight: bold;
+            color: #28a745;
+        }
+        .quantity-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .quantity-controls button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .quantity-controls button:hover {
+            background-color: #218838;
+        }
+        .total-price {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: right;
+        }
+        .buy-now {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 18px;
+            text-align: center;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .buy-now:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #333;
+            color: #fff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Your Cart</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="cart-items" id="cart-items"></div>
+        <div class="total-price" id="total-price">Total Price: $0.00</div>
+        <button class="buy-now"><a href="css93.html">Buy Now</a></button>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 PizzaDelivery. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Function to display cart items
+       // Function to display cart items
+function displayCartItems() {
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartItemsContainer = document.getElementById('cart-items');
+    const totalPriceElement = document.getElementById('total-price');
+    
+    // Clear the cart items container
+    cartItemsContainer.innerHTML = '';
+    let totalPrice = 0;
+
+    // Loop through cart items and create HTML for each
+    cartItems.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.className = 'cart-item';
+        
+        itemElement.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
+            <h3>${item.name}</h3>
+            <p class="price">$${item.price}</p>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity('${item.name}', 'decrease')">-</button>
+                <span>${item.quantity}</span>
+                <button onclick="changeQuantity('${item.name}', 'increase')">+</button>
+            </div>
+        `;
+        
+        cartItemsContainer.appendChild(itemElement);
+        totalPrice += item.price * item.quantity; // Calculate total price
+    });
+
+    totalPriceElement.innerText = `Total Price: $${totalPrice.toFixed(2)}`;
+}
+
+// Function to change the quantity of cart items
+function changeQuantity(pizzaName, action) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Find the pizza in the cart
+    const pizzaIndex = cart.findIndex(item => item.name === pizzaName);
+    if (pizzaIndex > -1) {
+        if (action === 'increase') {
+            cart[pizzaIndex].quantity += 1; // Increase quantity
+        } else if (action === 'decrease' && cart[pizzaIndex].quantity > 1) {
+            cart[pizzaIndex].quantity -= 1; // Decrease quantity if greater than 1
+        }
+    }
+
+    // Save updated cart back to local storage
+    localStorage.setItem('cart', JSON.stringify(cart));
+    displayCartItems(); // Update displayed cart items
+}
+
+// Display cart items on page load
+window.onload = displayCartItems;
+
+       
+    
+        // Initialize cart display on page load
+        document.addEventListener('DOMContentLoaded', displayCartItems);
+    </script>
+    
+
+</body>
+</html>

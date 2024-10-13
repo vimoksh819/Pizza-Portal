@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <style>body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    .container {
+        background-color: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    
+    h2 {
+        margin-bottom: 30px;
+        color: #333;
+    }
+    
+    .payment-options {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+    
+    .payment-option {
+        flex: 1;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #fafafa;
+    }
+    
+    .payment-option h3 {
+        color: #333;
+    }
+    
+    #qr-code {
+        width: 150px;
+        height: 150px;
+    }
+    
+    button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    
+    button:hover {
+        background-color: #45a049;
+    }
+    
+    #payment-method {
+        margin-top: 30px;
+        font-size: 18px;
+        color: #666;
+    }
+    </style>
+    <div class="container">
+        <h2>Select Your Payment Method</h2>
+
+        <div class="payment-options">
+            <!-- UPI Payment Option -->
+            <div class="payment-option">
+                <h3>UPI Payment</h3>
+                <img id="qr-code" src="images/WhatsApp Image 2024-10-13 at 11.53.18 PM.jpeg" alt="QR Code for UPI Payment">
+                <p>Scan the QR code to pay</p>
+            </div>
+
+            <!-- Cash on Delivery Option -->
+            <div class="payment-option">
+                <h3>Cash on Delivery</h3>
+                <p>Pay when your order is delivered.</p>
+                <button onclick="codPayment()">Select COD</button> 
+
+            </div>
+        </div>
+
+        <div id="payment-method">
+            <p id="selected-method">No payment method selected.</p>
+            <a href="css95.html"><button type="submit">SUBMIT</button></a>
+
+        </div>
+    </div>
+   
+
+    <script>function codPayment() {
+        // Set the selected payment method as Cash on Delivery
+        document.getElementById('selected-method').innerText = "You have selected Cash on Delivery.";
+    }
+    </script>
+</body>
+</html>

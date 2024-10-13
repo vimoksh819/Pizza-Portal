@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+}
+
+p {
+    color: #666;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+    </style>
+    <div class="container">
+        <h1 id="thank-you-message">Thank you for your purchase!</h1>
+        <p id="order-id">Your Order ID is: <span id="generated-id"></span></p>
+        <button onclick="generateOrderID()">Generate Order ID</button>
+    </div>
+<script>function generateOrderID() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let orderID = '';
+    for (let i = 0; i < 8; i++) {
+        orderID += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+
+    // Display the generated Order ID in the span
+    document.getElementById('generated-id').innerText = orderID;
+}
+</script>
+</body>
+</html>

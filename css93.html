@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Delivery</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        input[type="email"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4caf50;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .cart-item {
+            background-color: #fafafa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item p {
+            margin: 0;
+            color: #555;
+        }
+
+        .cart-total {
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        .bill {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .bill h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .bill p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Pizza Delivery</h2>
+
+        <!-- Delivery Form -->
+        <form id="deliveryForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" placeholder="Enter your phone number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address</label>
+                <select id="address">
+                    <option value="BH1">BH1</option>
+                    <option value="BH2">BH2</option>
+                    <option value="BH3">BH3</option>
+                    <option value="BH4">BH4</option>
+                    <option value="BH5">BH5</option>
+                    <option value="BH6">BH6</option>
+                    <option value="BH7">BH7</option>
+                    <option value="GH1">GH1</option>
+                    <option value="GH2">GH2</option>
+                    <option value="GH3">GH3</option>
+                    <option value="GH4">GH4</option>
+                    <option value="GH5">GH5</option>
+                    <option value="GH6">GH6</option>
+                    <option value="GH7">GH7</option>
+                </select>
+            </div>
+
+            <!-- Cart Items Section -->
+            <h3>Your Cart Items</h3>
+            <div id="cartItems">
+                <!-- Cart items will be displayed here -->
+            </div>
+
+            <!-- Cart Total -->
+            <div class="cart-total" id="cartTotal">
+                Total: $0.00
+            </div>
+
+            <!-- Submit Button -->
+            <button type="button" onclick="submitForm()">Proceed to Payment</button>
+        </form>
+
+        <!-- Bill Section (Initially hidden) -->
+        <div id="bill" class="bill" style="display: none;">
+            <h3>Order Summary</h3>
+            <p id="billName"></p>
+            <p id="billEmail"></p>
+            <p id="billPhone"></p>
+            <p id="billAddress"></p>
+            <h3>Your Cart Items</h3>
+            <div id="billCartItems"></div>
+            <div class="cart-total" id="billCartTotal"></div>
+        </div>
+              <a href="css96.html"><button type="submit">pay now</button></a>
+    </div>
+
+    <script>
+        // Function to display cart items from localStorage
+        function displayCartItems() {
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartTotalElement = document.getElementById('cartTotal');
+            cartItemsContainer.innerHTML = ''; // Clear previous items
+
+            let totalPrice = 0;
+
+            cartItems.forEach((item) => {
+                totalPrice += parseFloat(item.price) * item.quantity;
+                const cartItemDiv = document.createElement('div');
+                cartItemDiv.classList.add('cart-item');
+                cartItemDiv.innerHTML = `<p>${item.name} - Quantity: ${item.quantity}</p>`;
+                cartItemsContainer.appendChild(cartItemDiv);
+            });
+
+            cartTotalElement.innerHTML = `Total: $${totalPrice.toFixed(2)}`;
+        }
+
+        function submitForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+
+            // Display the bill section
+            document.getElementById('billName').innerText = `Name: ${name}`;
+            document.getElementById('billEmail').innerText = `Email: ${email}`;
+            document.getElementById('billPhone').innerText = `Phone: ${phone}`;
+            document.getElementById('billAddress').innerText = `Address: ${address}`;
+
+            // Get cart items from the current cart display
+            const cartItems = document.getElementById('cartItems').innerHTML;
+            document.getElementById('billCartItems').innerHTML = cartItems;
+
+            // Show the bill section
+            document.getElementById('bill').style.display = 'block';
+        }
+
+        // Initialize cart display on page load
+        document.addEventListener('DOMContentLoaded', displayCartItems);
+    </script>
+
+</body>
+</html>
+
+
+

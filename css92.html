@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+        nav {
+            margin-left: auto;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #28a745;
+        }
+        .hero {
+            display: flex;
+            align-items: center;
+            background: url('https://images.dominos.co.in/nextgen-catalog/media/prod/Dominos/menu/BBQ_Chicken_Pizza.jpg') no-repeat center center;
+            background-size: cover;
+            color: rgb(0, 0, 0, 0.51);
+            padding: 50px 20px;
+            position: relative;
+        }
+        .hero img {
+            width: 150px;
+            height: auto;
+            margin-right: 20px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin: 0;
+            z-index: 1;
+            text-align: center;
+        }
+        .hero p {
+            font-size: 24px;
+            z-index: 1;
+        }
+        .menu {
+            margin: 20px 0;
+        }
+        .pizza-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .pizza {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            flex: 1 1 30%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .pizza:hover {
+            transform: scale(1.05);
+        }
+        .pizza img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        .pizza h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .pizza .price {
+            font-weight: bold;
+            color: #28a745;
+        }
+        .add-to-cart {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .add-to-cart:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #333;
+            color: #fff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        /* Veg/Non-Veg Toggle Styles */
+        .toggle-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #28a745;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Pizza Portal</div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="css94.html">Cart (<span id="cart-count">0</span>)</a></li>
+                    <li><a href="#">Offers</a></li>
+                    <li><a href="css97.html">Contact</a></li>
+                    <li><a href="#">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+        <br><marquee direction="right">WELCOME TO PIZZA Portal Get free Empire Pizza For First Order</marquee></br>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="images/fotor-ai-20241013175259 copy.png" width="150" height="150" alt="Pizza">
+        <center><h1>Hot, Fresh, and Fast Pizza Delivery</h1>
+        <p>Order Now and Enjoy Delicious Pizza!</p></center>
+    </section>
+   
+    <!-- Menu Section -->
+    <section class="menu">
+        <div class="container">
+            <h2>Our Menu</h2>
+            <div class="toggle-container">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="veg-toggle" onclick="filterPizzas()">
+                    <span class="slider"></span>
+                </label>
+                <p id="toggle-text">Show Veg Pizzas</p>
+            </div>
+            <div id="pizza-container" class="pizza-items">
+                <!-- Veg Pizzas -->
+                <div class="pizza" data-veg="true">
+                    <img src="https://images.dominos.co.in/nextgen-catalog/media/prod/Dominos/menu/9e9f8ad2-7ca0-4b61-b2cd-65ed068e87c0_new_peppy_paneer.jpg" alt="Peppy Paneer">
+                    <h3>Peppy Paneer</h3>
+                    <p>Flavorful trio of juicy paneer, crisp capsicum with spicy red paprika.</p>
+                    <p class="price">$11.99</p>
+                    <button class="add-to-cart" onclick="addToCart('Peppy Paneer', 'https://images.dominos.co.in/nextgen-catalog/media/prod/Dominos/menu/9e9f8ad2-7ca0-4b61-b2cd-65ed068e87c0_new_peppy_paneer.jpg', '11.99')">Add to Cart</button>
+                </div>
+                <div class="pizza" data-veg="true">
+                    <img src="https://images.dominos.co.in/nextgen-catalog/media/prod/Dominos/menu/6c5255de-0f9f-4e50-b373-e39f73f72074_new_veggie_paradise.jpg" alt="Veggie Paradise">
+                    <h3>Veggie Paradise</h3>
+                    <p>The awesome foursome! Golden corn, black olives, capsicum, red paprika.</p>
+                    <p class="price">$13.99</p>
+                    <button class="add-to-cart" onclick="addToCart('Veggie Paradise', 'https://images.dominos.co.in/nextgen-catalog/media/prod/Dominos/menu/6c5255de-0f9f-4e50-b373-e39f73f72074_new_veggie_paradise.jpg', '13.99')">Add to Cart</button>
+                </div>
+                <div class="pizza" data-veg="true">
+                    <img src="https://www.dominos.co.in/files/items/IndianTandooriPaneer.jpg" alt="Mexican Green Wave">
+                    <h3>Mexican Green Wave</h3>
+                    <p>Green capsicum, onion, and jalapeño topped with a spicy mix.</p>
+                    <p class="price">$12.49</p>
+                    <button class="add-to-cart" onclick="addToCart('Mexican Green Wave', 'https://images.dominos.co.in/nextgen-catalog/media/prod/Dominos/menu/3ccf5aa3-1a93-4cf1-b2d5-e85f1b10c7b5_new_mexican_green_wave.jpg', '12.49')">Add to Cart</button>
+                </div>
+                <div class="pizza" data-veg="true">
+                    <img src="https://www.dominos.co.in/files/items/Paneer_Makhni.jpg" alt="Funghi Pizza">
+                    <h3>PANEER MAKHANI</h3>
+                    <p>Loaded with fresh mushrooms and a sprinkle of cheese.</p>
+                    <p class="price">$12.99</p>
+                    <button class="add-to-cart" onclick="addToCart('Funghi Pizza', 'https://images.dominos.co.in/nextgen-catalog/media/prod/Dominos/menu/Funghi_Pizza.jpg', '12.99')">Add to Cart</button>
+                </div>
+                <div class="pizza" data-veg="true">
+                    <img src="https://www.dominos.co.in/files/items/updated_achari_do_pyaza.webp" alt="Tandoori Paneer Pizza">
+                    <h3>Tandoori Paneer Pizza</h3>
+                    <p>Spiced paneer with tandoori flavor and a mix of vegetables.</p>
+                    <p class="price">$14.99</p>
+                    <button class="add-to-cart" onclick="addToCart('Tandoori Paneer Pizza', 'https://images.dominos.co.in/nextgen-catalog/media/prod/Dominos/menu/7f634c6a-5c84-4e2f-956f-e43f6b320c3a_new_tandoori_paneer_pizza.jpg', '14.99')">Add to Cart</button>
+                </div>
+                <div class="pizza" data-veg="true">
+                    <img src="https://www.dominos.co.in/files/items/Corn_&_Cheese.jpg" alt="Farmhouse">
+                    <h3>Farmhouse</h3>
+                    <p>Fresh vegetables and cheese for a classic combination.</p>
+                    <p class="price">$13.49</p>
+                    <button class="add-to-cart" onclick="addToCart('Farmhouse', 'https://images.dominos.co.in/nextgen-catalog/media/prod/Dominos/menu/4a567f77-4f2d-4be9-8f29-30a3b437e619_new_farmhouse.jpg', '13.49')">Add to Cart</button>
+                </div>
+                
+                <!-- Non-Veg Pizzas -->
+                <div class="pizza" data-veg="false">
+                    <img src="https://www.dominos.co.in/files/items/MicrosoftTeams-image_(14).png" alt="BBQ Chicken Pizza">
+                    <h3>BBQ Chicken Pizza</h3>
+                    <p>Tender chicken pieces with smoky BBQ sauce.</p>
+                    <p class="price">$15.99</p>
+                    <button class="add-to-cart" onclick="addToCart('BBQ Chicken Pizza', 'https://images.dominos.co.in/nextgen-catalog/media/prod/Dominos/menu/BBQ_Chicken_Pizza.jpg', '15.99')">Add to Cart</button>
+                </div>
+                <div class="pizza" data-veg="false">
+                    <img src="https://www.dominos.co.in/files/items/Pepper_Barbeque_&_Onion.jpg" alt="Chicken Meet Me">
+                    <h3>Chicken Meet Me</h3>
+                    <p>A medley of chicken, onion, and green peppers.</p>
+                    <p class="price">$17.49</p>
+                    <button class="add-to-cart" onclick="addToCart('Chicken Meet Me', 'https://images.dominos.co.in/nextgen-catalog/media/prod/Dominos/menu/Chicken_Meet_Me.jpg', '17.49')">Add to Cart</button>
+                </div>
+                <div class="pizza" data-veg="false">
+                    <img src="https://www.dominos.co.in/files/items/MicrosoftTeams-image_(15).png" alt="Spicy Chicken Chicken">
+                    <h3>Spicy Chicken Chicken</h3>
+                    <p>Spicy chicken pieces with bell peppers and jalapeños.</p>
+                    <p class="price">$16.99</p>
+                    <button class="add-to-cart" onclick="addToCart('Spicy Chicken Chicken', 'https://images.dominos.co.in/nextgen-catalog/media/prod/Dominos/menu/Spicy_Chicken_Chicken.jpg', '16.99')">Add to Cart</button>
+                </div>
+                <div class="pizza" data-veg="false">
+                    <img src="https://www.dominos.co.in/files/items/MicrosoftTeams-image_(18).png" alt="Peri Peri Chicken Pizza">
+                    <h3>Peri Peri Chicken Pizza</h3>
+                    <p>Chicken marinated with spicy peri-peri sauce.</p>
+                    <p class="price">$18.49</p>
+                    <button class="add-to-cart" onclick="addToCart('Peri Peri Chicken Pizza', 'https://images.dominos.co.in/nextgen-catalog/media/prod/Dominos/menu/Peri_Peri_Chicken.jpg', '18.49')">Add to Cart</button>
+                </div>
+                <div class="pizza" data-veg="false">
+                    <img src="https://www.dominos.co.in/files/items/MicrosoftTeams-image_(10).png" alt="Meat Lovers Pizza">
+                    <h3>Meat Lovers Pizza</h3>
+                    <p>Loaded with pepperoni, sausage, and bacon.</p>
+                    <p class="price">$19.49</p>
+                    <button class="add-to-cart" onclick="addToCart('Meat Lovers Pizza', 'https://images.dominos.co.in/nextgen-catalog/media/prod/Dominos/menu/Meat_Lovers_Pizza.jpg', '19.49')">Add to Cart</button>
+                </div>
+                <div class="pizza" data-veg="false">
+                    <img src="https://www.dominos.co.in/files/items/MoroccanSpicePPNV_N.jpg" alt="Pepperoni Pizza">
+                    <h3>Pepperoni Pizza</h3>
+                    <p>Savory pepperoni with a blend of cheeses.</p>
+                    <p class="price">$16.49</p>
+                    <button class="add-to-cart" onclick="addToCart('Pepperoni Pizza', 'https://images.dominos.co.in/nextgen-catalog/media/prod/Dominos/menu/Pepperoni_Pizza.jpg', '16.49')">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Pizza Portal. All Rights Reserved.</p>
+    </footer>
+    <script>
+
+    let cartCount = 0; // Initialize cart count outside the function
+
+    function addToCart(pizzaName, pizzaImage, pizzaPrice) {
+        // Increment the cart count
+        cartCount++;
+        document.getElementById('cart-count').innerText = cartCount;
+    
+        // Get the current cart from local storage or initialize it
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+        // Create a pizza object
+        const pizza = {
+            name: pizzaName,
+            image: pizzaImage,
+            price: pizzaPrice,
+            quantity: 1 // Default quantity when added to cart
+        };
+    
+        // Check if the pizza already exists in the cart
+        const existingPizzaIndex = cart.findIndex(item => item.name === pizzaName);
+        if (existingPizzaIndex > -1) {
+            // If it exists, increase the quantity
+            cart[existingPizzaIndex].quantity += 1;
+        } else {
+            // If it doesn't, add the new pizza
+            cart.push(pizza);
+        }
+    
+        // Save the updated cart back to local storage
+        localStorage.setItem('cart', JSON.stringify(cart));
+    
+        alert(`${pizzaName} has been added to your cart!`);
+    }
+    </script>
