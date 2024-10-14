@@ -113,7 +113,7 @@
     <div class="container">
         <div class="cart-items" id="cart-items"></div>
         <div class="total-price" id="total-price">Total Price: $0.00</div>
-        <button class="buy-now"><a href="css93.html">Buy Now</a></button>
+        <button class="buy-now"><a href="css93.html" style="color: white; text-decoration: none;">Buy Now</a></button>
     </div>
 
     <footer>
@@ -122,67 +122,61 @@
 
     <script>
         // Function to display cart items
-       // Function to display cart items
-function displayCartItems() {
-    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-    const cartItemsContainer = document.getElementById('cart-items');
-    const totalPriceElement = document.getElementById('total-price');
-    
-    // Clear the cart items container
-    cartItemsContainer.innerHTML = '';
-    let totalPrice = 0;
+        function displayCartItems() {
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalPriceElement = document.getElementById('total-price');
+            
+            // Clear the cart items container
+            cartItemsContainer.innerHTML = '';
+            let totalPrice = 0;
 
-    // Loop through cart items and create HTML for each
-    cartItems.forEach(item => {
-        const itemElement = document.createElement('div');
-        itemElement.className = 'cart-item';
-        
-        itemElement.innerHTML = `
-            <img src="${item.image}" alt="${item.name}">
-            <h3>${item.name}</h3>
-            <p class="price">$${item.price}</p>
-            <div class="quantity-controls">
-                <button onclick="changeQuantity('${item.name}', 'decrease')">-</button>
-                <span>${item.quantity}</span>
-                <button onclick="changeQuantity('${item.name}', 'increase')">+</button>
-            </div>
-        `;
-        
-        cartItemsContainer.appendChild(itemElement);
-        totalPrice += item.price * item.quantity; // Calculate total price
-    });
+            // Loop through cart items and create HTML for each
+            cartItems.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                
+                itemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <h3>${item.name}</h3>
+                    <p class="price">$${item.price.toFixed(2)}</p>
+                    <div class="quantity-controls">
+                        <button onclick="changeQuantity('${item.name}', 'decrease')">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="changeQuantity('${item.name}', 'increase')">+</button>
+                    </div>
+                `;
+                
+                cartItemsContainer.appendChild(itemElement);
+                totalPrice += item.price * item.quantity; // Calculate total price
+            });
 
-    totalPriceElement.innerText = `Total Price: $${totalPrice.toFixed(2)}`;
-}
-
-// Function to change the quantity of cart items
-function changeQuantity(pizzaName, action) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    // Find the pizza in the cart
-    const pizzaIndex = cart.findIndex(item => item.name === pizzaName);
-    if (pizzaIndex > -1) {
-        if (action === 'increase') {
-            cart[pizzaIndex].quantity += 1; // Increase quantity
-        } else if (action === 'decrease' && cart[pizzaIndex].quantity > 1) {
-            cart[pizzaIndex].quantity -= 1; // Decrease quantity if greater than 1
+            totalPriceElement.innerText = `Total Price: $${totalPrice.toFixed(2)}`;
         }
-    }
 
-    // Save updated cart back to local storage
-    localStorage.setItem('cart', JSON.stringify(cart));
-    displayCartItems(); // Update displayed cart items
-}
+        // Function to change the quantity of cart items
+        function changeQuantity(pizzaName, action) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-// Display cart items on page load
-window.onload = displayCartItems;
+            // Find the pizza in the cart
+            const pizzaIndex = cart.findIndex(item => item.name === pizzaName);
+            if (pizzaIndex > -1) {
+                if (action === 'increase') {
+                    cart[pizzaIndex].quantity += 1; // Increase quantity
+                } else if (action === 'decrease' && cart[pizzaIndex].quantity > 1) {
+                    cart[pizzaIndex].quantity -= 1; // Decrease quantity if greater than 1
+                }
+            }
 
-       
-    
-        // Initialize cart display on page load
-        document.addEventListener('DOMContentLoaded', displayCartItems);
+            // Save updated cart back to local storage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCartItems(); // Update displayed cart items
+        }
+
+        // Display cart items on page load
+        window.onload = displayCartItems;
+
     </script>
-    
 
 </body>
 </html>
